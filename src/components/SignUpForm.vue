@@ -13,7 +13,9 @@
         <label for="nickname">nickname: </label>
         <input type="text" id="nickname" v-model="nickname" />
       </div>
-      <button type="submit">회원가입</button>
+      <button v-bind:disabled="!isUsernameValid || !password || !nickname" type="submit">
+        회원가입
+      </button>
       <button type="reset">취소</button>
       <p>{{ logMessage }}</p>
     </form>
@@ -22,6 +24,7 @@
 
 <script>
 import { registerUser } from '@/api/index';
+import { validateEmail } from '@/utils/validation';
 
 export default {
   name: 'SignUpForm',
@@ -50,6 +53,11 @@ export default {
       this.username = '';
       this.password = '';
       this.nickname = '';
+    },
+  },
+  computed: {
+    isUsernameValid() {
+      return validateEmail(this.username);
     },
   },
 };
