@@ -23,6 +23,6 @@ export default new VueRouter({
     {
       path: '*',
       component: () => import('@/views/NotFoundPage.vue'),
-    }
+    },
   ],
 });

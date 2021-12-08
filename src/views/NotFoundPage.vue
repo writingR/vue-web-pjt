@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <h2>test</h2>
-  </div>
+  <div>404Page</div>
 </template>
 
 <script>
 export default {
-  name: "AppHeader",
+  name: 'NotFoundPage',
 };
 </script>
