@@ -9,11 +9,7 @@
 import MainForm from '@/components/MainForm';
 
 export default {
-  name: "MainPage",
-  components: { MainForm }
-}
+  name: 'MainPage',
+  components: { MainForm },
+};
 </script>
-
-<style scoped>
-
-</style>
