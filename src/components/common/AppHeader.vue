@@ -7,7 +7,8 @@
     </div>
     <div class="navigations">
       <template v-if="isUserLogin">
-        <span >{{$store.state.username}}</span>
+        <span class="username">{{$store.state.username}}</span>
+        <a href="#" @click="logoutUser">Logout</a>
       </template>
       <template v-else>
         <router-link to="/signup">회원가입</router-link>
@@ -23,6 +24,12 @@ export default {
   computed: {
     isUserLogin() {
       return this.$store.getters.isLogin;
+    }
+  },
+  methods: {
+    logoutUser() {
+      this.$store.commit('clearUsername');
+      this.$router.push('/');
     }
   }
 };
@@ -62,5 +69,8 @@ a.logo {
 a.router-link-exact-active {
   color: white;
   font-weight: bold;
+}
+.username {
+ color: #fff;
 }
 </style>

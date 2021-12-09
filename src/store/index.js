@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store ({
    state: {
       username: '',
+      password: '',
    },
    getters: {
       isLogin(state) {
@@ -16,5 +17,8 @@ export default new Vuex.Store ({
       setUsername(state, username) {
          state.username = username;
       },
+      clearUsername(state, username) {
+         state.username = '';
+      }
    }
 });
