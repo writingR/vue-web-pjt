@@ -9,12 +9,19 @@ function createInstance() {
 }
 const instance = createInstance();
 
+// 회원가입 api
 function registerUser(userData) {
   return instance.post('signup', userData);
 }
 
+// 로그인 api
 function loginUser(userData) {
   return instance.post('login', userData);
 }
 
-export { registerUser, loginUser };
+// 학습노트 조회 api
+function fetchPosts() {
+  return instance.get('posts');
+}
+
+export { registerUser, loginUser, fetchPosts };
