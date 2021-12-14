@@ -8,6 +8,8 @@
     </div>
     <div class="post-time">
       {{ postItem.createdAt }}
+      <ion-icon class="icon" style="color: #000; font-size: 18px" name="create" @click="createItem"></ion-icon>
+      <ion-icon class="icon" style="color: #000; font-size: 18px" name="trash" @click="deleteItem"></ion-icon>
     </div>
   </li>
 </template>
@@ -20,6 +22,14 @@ export default {
       required: true,
     },
   },
+  methods: {
+    createItem() {
+      this.$router.push('/add');
+    },
+    deleteItem() {
+      console.log('delete');
+    },
+  }
 };
 </script>
 
