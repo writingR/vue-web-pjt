@@ -2,31 +2,22 @@ import axios from 'axios';
 import { setInterceptors } from './common/interceptors';
 
 function createInstance() {
-  const instance = axios.create({
+  return axios.create({
     baseURL: process.env.VUE_APP_API_URL,
+  });
+}
+
+function createInstanceWithAuth(url) {
+  const instance = axios.create({
+    baseURL: `${process.env.VUE_APP_API_URL}${url}`,
   });
   return setInterceptors(instance);
 }
-const instance = createInstance();
 
-// 회원가입 api
-function registerUser(userData) {
-  return instance.post('signup', userData);
-}
+export const instance = createInstance();
+export const posts = createInstanceWithAuth('posts')
 
-// 로그인 api
-function loginUser(userData) {
-  return instance.post('login', userData);
-}
 
-// 학습노트 조회 api
-function fetchPosts() {
-  return instance.get('posts');
-}
 
-// 학습노트 추가 api
-function createPost(postData) {
-  return instance.post('posts', postData);
-}
 
-export { registerUser, loginUser, fetchPosts, createPost };
+
