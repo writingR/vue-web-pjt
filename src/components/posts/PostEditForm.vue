@@ -1,6 +1,6 @@
 <template>
   <div class="contents">
-    <h1 class="page-header">글작성</h1>
+    <h1 class="page-header">글수정</h1>
     <div class="form-wrapper">
       <form @submit.prevent="submitForm" class="form">
         <div>
@@ -12,7 +12,7 @@
           <textarea id="contents" v-model="contents" rows="5"></textarea>
           <p class="validation-text warning" v-if="!isContentsValid">해당 내용에 길이는 200자 이하만 가능합니다.</p>
         </div>
-        <button type="submit" class="btn">작성</button>
+        <button type="submit" class="btn">수정</button>
         <button type="reset" class="btn" style="margin-left: 5px" v-on:click="mainPageMove">홈</button>
       </form>
       <p class="log">
@@ -23,16 +23,23 @@
 </template>
 
 <script>
-import { createPost } from '@/api/posts';
+import { fetchPost, updatePost } from '@/api/posts';
 
 export default {
-  name: 'PostAddForm',
+  name: 'PostEditForm',
   data() {
     return {
       title: '',
       contents: '',
       logMessage: '',
     };
+  },
+  async created() {
+    const id = this.$route.params.id;
+    const { data } = await fetchPost(id);
+    this.title = data.title;
+    this.contents = data.contents;
+    // console.log(data);
   },
   computed: {
     isContentsValid() {
@@ -44,16 +51,20 @@ export default {
       try {
         const postData = {
           title: this.title,
+          contents: this.contents
+        };
+        console.log(postData);
+        const id = this.$route.params.id;
+        console.log(id);
+        await updatePost(id, {
+          title: this.title,
           contents: this.contents,
-        }
-        const response = await createPost(postData);
-        console.log(response.data);
-        this.logMessage = '정상적으로 글이 등록되었습니다.';
-        await this.$router.push('/main');
-      } catch (err) {
-        // this.logMessage = '작성에 실패했습니다. 다시 확인해주세요.';
-        this.logMessage = err.response.data.message;
-        console.log(err.response.data.message);
+        });
+        this.logMessage = '정상적으로 글이 수정되었습니다.';
+        this.$router.push('/main');
+      } catch (e) {
+        console.log(e);
+        this.logMessage = '수정할 수 없습니다.';
       }
     },
     mainPageMove() {

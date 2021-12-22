@@ -8,13 +8,15 @@
     </div>
     <div class="post-time">
       {{ postItem.createdAt }}
-      <ion-icon class="icon" style="color: #000; font-size: 18px" name="create" @click="createItem"></ion-icon>
+      <ion-icon class="icon" style="color: #000; font-size: 18px" name="create" @click="routeItem"></ion-icon>
       <ion-icon class="icon" style="color: #000; font-size: 18px" name="trash" @click="deleteItem"></ion-icon>
     </div>
   </li>
 </template>
 
 <script>
+import { deletePost, fetchPosts } from '../../api/posts';
+
 export default {
   props: {
     postItem: {
@@ -26,8 +28,18 @@ export default {
     createItem() {
       this.$router.push('/add');
     },
-    deleteItem() {
-      console.log('delete');
+    async deleteItem() {
+      if(confirm('정말 삭제하시겠습니까?')) {
+        await deletePost(this.postItem._id);
+        this.$emit('refresh');
+        fetchPosts();
+        console.log('delete');
+      }
+    },
+    routeItem() {
+      const id = this.postItem._id;
+      this.$router.push(`/post/${id}`);
+      // console.log('update');
     },
   }
 };
