@@ -7,7 +7,7 @@
       {{ postItem.contents }}
     </div>
     <div class="post-time">
-      {{ postItem.createdAt }}
+      {{ postItem.createdAt  | formatDate }}
       <ion-icon class="icon" style="color: #000; font-size: 18px" name="create" @click="routeItem"></ion-icon>
       <ion-icon class="icon" style="color: #000; font-size: 18px" name="trash" @click="deleteItem"></ion-icon>
     </div>
@@ -24,6 +24,11 @@ export default {
       required: true,
     },
   },
+  // filters: {
+  //   formatData(value) {
+  //     return new Date(value);
+  //   }
+  // },
   methods: {
     createItem() {
       this.$router.push('/add');
